@@ -25,14 +25,15 @@ namespace WindowsFormsApp1
 
         }
 
-        private int count = 0;
         private SerialPort stream = new SerialPort("COM3", 115200);
         private void button1_Click(object sender, EventArgs e)
         {
             Thread t = new Thread(new ThreadStart(storeData));
             button1.Enabled = false;
             button2.Enabled = true;
-           
+            button3.Enabled = false;
+            
+
             t.Start();
 
             
@@ -52,29 +53,55 @@ namespace WindowsFormsApp1
             while (stop == false)
             {
                 string PRBPM = stream.ReadLine();
+                
                 string SPO2 = stream.ReadLine();
 
-                line = string.Format("{0},{1},", PRBPM, SPO2);
+                line = string.Format("{0},{1}", PRBPM, SPO2);
                 data.WriteLine(line);
                 data.Flush();
-                displayData(line);
+                
                 
             }
             data.Close();
             stream.Close();
             stop = false;
         }
-
-        private void displayData(string line)
-        {
-            
-        }
+        int count=0;
 
         private void button2_Click(object sender, EventArgs e)
         {
             stop = true;
             button1.Enabled = true;
             button2.Enabled = false;
+            button3.Enabled = true;
+            chart1.Series[0].Points.Clear();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
+            StreamReader database = new StreamReader("something.csv");
+            string data;
+            Char delim = ',';
+            String[] sensors;
+
+            for (int count = 0; count < database.BaseStream.Length; count++)
+            {
+                data = database.ReadLine();
+                
+                if (data != null)
+                {
+                    sensors = data.Split(delim);
+                    chart1.Series["Series1"].Points.AddXY(count, sensors[0]);
+                    chart1.Series["Series2"].Points.AddXY(count, sensors[1]);
+                    textBox1.Text =sensors[0];
+                    chart1.Update();
+                }
+              
+            }
+            button3.Enabled=false;
+            database.Close();
+            
         }
     }
 }

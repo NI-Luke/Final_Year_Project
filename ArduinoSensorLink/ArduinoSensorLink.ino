@@ -39,11 +39,12 @@ void setup() {
 
 void loop() {
 
-	Serial.print("PRbpm: ");
+	
 	Serial.print(eHealth.getBPM());
 	Serial.print("\n");
 
-	Serial.print("%SPo2: ");
+	delay(500);
+
 	Serial.print(eHealth.getOxygenSaturation());
 	Serial.print("\n");
 
