@@ -39,16 +39,24 @@ void setup() {
 
 void loop() {
 
-	
-	Serial.print(eHealth.getBPM());
-	Serial.print("\n");
+	int BPM = eHealth.getBPM();
+	int SPO2 = eHealth.getOxygenSaturation();
+	if (BPM <= 0||SPO2<=0)
+	{
 
-	delay(500);
+	}
+	else
+	{
+		
+		Serial.print(BPM);
+		Serial.print(",");
+		delay(500);
 
-	Serial.print(eHealth.getOxygenSaturation());
-	Serial.print("\n");
-
-	delay(500);
+		
+		Serial.print(SPO2);
+		Serial.print("\n");
+		delay(500);
+	}
 }
 
 
