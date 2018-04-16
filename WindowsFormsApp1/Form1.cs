@@ -26,6 +26,8 @@ namespace WindowsFormsApp1
         }
 
         private SerialPort stream = new SerialPort("COM3", 115200);
+        string fileName;
+        string date;
         private void BtnStart_Click(object sender, EventArgs e)
         {
             Thread t = new Thread(new ThreadStart(StoreData));
@@ -39,6 +41,8 @@ namespace WindowsFormsApp1
             txtPRBPM.Visible = true;
             txtNormHR.Visible = true;
             txtNormSPO2.Visible = true;
+            date = DateTime.Now.ToString("yyyy-M-dd-hh-mm-ss");
+            fileName = date+"-Sensordata.csv";
             stop = false;
 
             t.Start();
@@ -57,7 +61,7 @@ namespace WindowsFormsApp1
 
                 if (stop == false)
                 {
-                    data = new StreamWriter("something.csv");
+                    data = new StreamWriter(fileName);
                     stream.Open();
                     line = string.Format("{0},{1}", "PRBPM", "SPO2");
 
@@ -142,7 +146,7 @@ namespace WindowsFormsApp1
                 txtNormHR.Visible = false;
                 txtNormSPO2.Visible = false;
                 chart1.Visible = true;
-                StreamReader database = new StreamReader("something.csv");
+                StreamReader database = new StreamReader(fileName);
                 string data;
                 Char delim = ',';
                 String[] sensors;
