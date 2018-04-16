@@ -37,6 +37,8 @@ namespace WindowsFormsApp1
             chart1.Visible = false;
             txtSPO2.Visible = true;
             txtPRBPM.Visible = true;
+            txtNormHR.Visible = true;
+            txtNormSPO2.Visible = true;
             stop = false;
 
             t.Start();
@@ -137,6 +139,8 @@ namespace WindowsFormsApp1
             {
                 txtSPO2.Visible = false;
                 txtPRBPM.Visible = false;
+                txtNormHR.Visible = false;
+                txtNormSPO2.Visible = false;
                 chart1.Visible = true;
                 StreamReader database = new StreamReader("something.csv");
                 string data;
