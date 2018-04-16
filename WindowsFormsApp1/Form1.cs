@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
@@ -186,6 +187,21 @@ namespace WindowsFormsApp1
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             System.Environment.Exit(0);
+        }
+
+        private void btnShowFiles_Click(object sender, EventArgs e)
+        {
+            string folder = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); // @"\Debug\"
+            string filter = "*.csv";
+            string[] files = Directory.GetFiles(folder, filter);
+            chart1.Visible = false;
+            txtPRBPM.Visible = true;
+
+            for (int count = 0; count<files.Length; count++)
+            {
+               
+                txtPRBPM.Text += files[count];
+            }
         }
     }
 }

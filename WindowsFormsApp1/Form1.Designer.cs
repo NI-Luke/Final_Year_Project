@@ -44,6 +44,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnShowFiles = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -185,6 +186,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.72186F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.18111F));
+            this.tableLayoutPanel1.Controls.Add(this.btnShowFiles, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtNormHR, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtSPO2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.txtNormSPO2, 0, 3);
@@ -204,6 +206,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(777, 356);
             this.tableLayoutPanel1.TabIndex = 10;
+            // 
+            // btnShowFiles
+            // 
+            this.btnShowFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShowFiles.Location = new System.Drawing.Point(699, 216);
+            this.btnShowFiles.Name = "btnShowFiles";
+            this.btnShowFiles.Size = new System.Drawing.Size(75, 23);
+            this.btnShowFiles.TabIndex = 11;
+            this.btnShowFiles.Text = "Show Files";
+            this.btnShowFiles.UseVisualStyleBackColor = true;
+            this.btnShowFiles.Click += new System.EventHandler(this.btnShowFiles_Click);
             // 
             // Form1
             // 
@@ -243,6 +256,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button btnShowFiles;
     }
 }
 
