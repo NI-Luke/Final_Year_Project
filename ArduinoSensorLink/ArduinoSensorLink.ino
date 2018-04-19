@@ -41,7 +41,7 @@ void loop() {
 
 	int BPM = eHealth.getBPM();
 	int SPO2 = eHealth.getOxygenSaturation();
-	if (BPM <= 0||SPO2<=0)
+	if (BPM <= 30||SPO2<=0||SPO2>=300)
 	{
 
 	}

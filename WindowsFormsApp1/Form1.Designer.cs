@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.BtnStart = new System.Windows.Forms.Button();
             this.BtnStop = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -45,6 +45,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.BtnShowFiles = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -52,7 +53,8 @@
             // 
             // BtnStart
             // 
-            this.BtnStart.Location = new System.Drawing.Point(3, 3);
+            this.BtnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnStart.Location = new System.Drawing.Point(699, 3);
             this.BtnStart.Name = "BtnStart";
             this.BtnStart.Size = new System.Drawing.Size(75, 23);
             this.BtnStart.TabIndex = 0;
@@ -64,7 +66,7 @@
             // 
             this.BtnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnStop.Enabled = false;
-            this.BtnStop.Location = new System.Drawing.Point(699, 3);
+            this.BtnStop.Location = new System.Drawing.Point(699, 74);
             this.BtnStop.Name = "BtnStop";
             this.BtnStop.Size = new System.Drawing.Size(75, 23);
             this.BtnStop.TabIndex = 2;
@@ -74,24 +76,24 @@
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(0, 56);
             this.chart1.Name = "chart1";
-            series3.BorderWidth = 10;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "PRBPM";
-            series4.BorderWidth = 10;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Legend = "Legend1";
-            series4.Name = "SPO2";
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
+            series9.BorderWidth = 10;
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Legend = "Legend1";
+            series9.Name = "PRBPM";
+            series10.BorderWidth = 10;
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Legend = "Legend1";
+            series10.Name = "SPO2";
+            this.chart1.Series.Add(series9);
+            this.chart1.Series.Add(series10);
             this.chart1.Size = new System.Drawing.Size(693, 324);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
@@ -99,9 +101,9 @@
             // 
             // BtnShowChart
             // 
-            this.BtnShowChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnShowChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnShowChart.Enabled = false;
-            this.BtnShowChart.Location = new System.Drawing.Point(699, 330);
+            this.BtnShowChart.Location = new System.Drawing.Point(699, 216);
             this.BtnShowChart.Name = "BtnShowChart";
             this.BtnShowChart.Size = new System.Drawing.Size(75, 23);
             this.BtnShowChart.TabIndex = 4;
@@ -113,7 +115,7 @@
             // 
             this.txtSPO2.Enabled = false;
             this.txtSPO2.Font = new System.Drawing.Font("Yu Gothic UI", 20.25F);
-            this.txtSPO2.Location = new System.Drawing.Point(3, 145);
+            this.txtSPO2.Location = new System.Drawing.Point(3, 74);
             this.txtSPO2.Multiline = true;
             this.txtSPO2.Name = "txtSPO2";
             this.txtSPO2.Size = new System.Drawing.Size(416, 53);
@@ -124,7 +126,7 @@
             // 
             this.txtPRBPM.Enabled = false;
             this.txtPRBPM.Font = new System.Drawing.Font("Yu Gothic UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPRBPM.Location = new System.Drawing.Point(3, 287);
+            this.txtPRBPM.Location = new System.Drawing.Point(3, 216);
             this.txtPRBPM.Multiline = true;
             this.txtPRBPM.Name = "txtPRBPM";
             this.txtPRBPM.Size = new System.Drawing.Size(416, 53);
@@ -135,7 +137,7 @@
             // 
             this.txtNormHR.Enabled = false;
             this.txtNormHR.Font = new System.Drawing.Font("Yu Gothic UI", 20.25F);
-            this.txtNormHR.Location = new System.Drawing.Point(3, 74);
+            this.txtNormHR.Location = new System.Drawing.Point(3, 3);
             this.txtNormHR.Multiline = true;
             this.txtNormHR.Name = "txtNormHR";
             this.txtNormHR.Size = new System.Drawing.Size(416, 53);
@@ -147,7 +149,7 @@
             // 
             this.txtNormSPO2.Enabled = false;
             this.txtNormSPO2.Font = new System.Drawing.Font("Yu Gothic UI", 20.25F);
-            this.txtNormSPO2.Location = new System.Drawing.Point(3, 216);
+            this.txtNormSPO2.Location = new System.Drawing.Point(3, 145);
             this.txtNormSPO2.Multiline = true;
             this.txtNormSPO2.Name = "txtNormSPO2";
             this.txtNormSPO2.Size = new System.Drawing.Size(416, 53);
@@ -186,14 +188,14 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.72186F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.18111F));
-            this.tableLayoutPanel1.Controls.Add(this.BtnShowFiles, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txtNormHR, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txtSPO2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txtNormSPO2, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txtPRBPM, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.BtnStart, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.BtnStop, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.BtnShowChart, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.BtnStart, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.BtnStop, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.BtnShowFiles, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.BtnShowChart, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtNormHR, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtSPO2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtNormSPO2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtPRBPM, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -210,7 +212,7 @@
             // BtnShowFiles
             // 
             this.BtnShowFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnShowFiles.Location = new System.Drawing.Point(699, 216);
+            this.BtnShowFiles.Location = new System.Drawing.Point(699, 145);
             this.BtnShowFiles.Name = "BtnShowFiles";
             this.BtnShowFiles.Size = new System.Drawing.Size(75, 23);
             this.BtnShowFiles.TabIndex = 11;
@@ -218,15 +220,24 @@
             this.BtnShowFiles.UseVisualStyleBackColor = true;
             this.BtnShowFiles.Click += new System.EventHandler(this.BtnShowFiles_Click);
             // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Location = new System.Drawing.Point(2, 60);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(415, 321);
+            this.panel1.TabIndex = 12;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(777, 380);
-            this.Controls.Add(this.chart1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Health Check";
@@ -257,6 +268,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button BtnShowFiles;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

@@ -27,8 +27,8 @@ namespace WindowsFormsApp1
         }
 
         private SerialPort stream = new SerialPort("COM3", 115200);
-        string fileName;
-        string date;
+        private string fileName;
+        private string date;
         private void BtnStart_Click(object sender, EventArgs e)
         {
             Thread t = new Thread(new ThreadStart(StoreData));
@@ -97,7 +97,9 @@ namespace WindowsFormsApp1
                 //this.txtError.Visible = true;
                 ThreadHelperClass.SetText(this, txtSPO2, "Please attach the device");
                 ThreadHelperClass.SetText(this, txtPRBPM, "Please attach the device");
-                
+
+
+                this.Invoke(new Action(() => { BtnStop.PerformClick(); }));
                 
                 StoreData();
 
@@ -151,6 +153,9 @@ namespace WindowsFormsApp1
                 string data;
                 Char delim = ',';
                 String[] sensors;
+                panel1.Visible = false;
+                chart1.BringToFront();
+                
 
                 for (int count = 0; count < database.BaseStream.Length; count++)
                 {
@@ -179,7 +184,6 @@ namespace WindowsFormsApp1
             }
             catch (NullReferenceException ex)
             {
-
                
             }
         }
@@ -200,24 +204,26 @@ namespace WindowsFormsApp1
             txtNormSPO2.Visible = false;
             txtNormHR.Visible = false;
             BtnShowChart.Enabled = true;
-            int place = 56;
+            int place = 0;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
 
-            for (int count = 0; count<files.Length; count++)
+            for (int count = 0; count < files.Length; count++)
             {
-               place = AddRadioButton(Path.GetFileName(files[count]),place);
-               
+                place = AddRadioButton(Path.GetFileName(files[count]), place);
             }
 
         }
         private int AddRadioButton(string file, int place)
         {
             System.Windows.Forms.RadioButton rb = new System.Windows.Forms.RadioButton();
-            this.Controls.Add(rb);
-            rb.BringToFront();
+            panel1.Controls.Add(rb);
+            panel1.Visible = true;
+            panel1.BringToFront();
             
             rb.Top = place;
             rb.Left = 0;
-            rb.Width =200;
+            rb.Width = 200;
             rb.Text = file;
             place = place + 20;
             rb.Checked = true;
