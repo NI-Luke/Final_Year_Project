@@ -189,19 +189,41 @@ namespace WindowsFormsApp1
             System.Environment.Exit(0);
         }
 
-        private void btnShowFiles_Click(object sender, EventArgs e)
+        private void BtnShowFiles_Click(object sender, EventArgs e)
         {
             string folder = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); // @"\Debug\"
             string filter = "*.csv";
             string[] files = Directory.GetFiles(folder, filter);
             chart1.Visible = false;
-            txtPRBPM.Visible = true;
+            txtPRBPM.Visible = false;
+            txtSPO2.Visible = false;
+            txtNormSPO2.Visible = false;
+            txtNormHR.Visible = false;
+            BtnShowChart.Enabled = true;
+            int place = 56;
 
             for (int count = 0; count<files.Length; count++)
             {
+               place = AddRadioButton(Path.GetFileName(files[count]),place);
                
-                txtPRBPM.Text += files[count];
             }
+
+        }
+        private int AddRadioButton(string file, int place)
+        {
+            System.Windows.Forms.RadioButton rb = new System.Windows.Forms.RadioButton();
+            this.Controls.Add(rb);
+            rb.BringToFront();
+            
+            rb.Top = place;
+            rb.Left = 0;
+            rb.Width =200;
+            rb.Text = file;
+            place = place + 20;
+            rb.Checked = true;
+            fileName = file;
+           
+            return place;
         }
     }
 }
