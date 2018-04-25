@@ -16,6 +16,12 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        private SerialPort stream = new SerialPort("COM3", 115200);
+        private string fileName;
+        private string date;
+        private StreamWriter data;
+
+        private Boolean stop = false;
         public Form1()
         {
             InitializeComponent();
@@ -23,43 +29,134 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
-        private SerialPort stream = new SerialPort("COM3", 115200);
-        private string fileName;
-        private string date;
-        private void BtnStart_Click(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)
         {
             Thread t = new Thread(new ThreadStart(StoreData));
-            BtnStart.Enabled = false;
-            BtnStop.Enabled = true;
-            BtnShowChart.Enabled = false;
+            StartButton.Enabled = false;
+            StopButton.Enabled = true;
+            DisplayChart.Enabled = false;
+            ShowFiles.Enabled = false;
+
+            StartButton.Image = WindowsFormsApp1.Properties.Resources.start_button_inactive_png_image_14963;
+            StopButton.Image = WindowsFormsApp1.Properties.Resources.red_stop_button_png_image_100688;
+            DisplayChart.Image = WindowsFormsApp1.Properties.Resources.chart_png_image_inactive_71182;
+            ShowFiles.Image = WindowsFormsApp1.Properties.Resources.desk_drawer_png_image_inactive_12850;
+
             chart1.Series[0].Points.Clear();
             chart1.Series[1].Points.Clear();
+
             chart1.Visible = false;
             txtSPO2.Visible = true;
             txtPRBPM.Visible = true;
             txtNormHR.Visible = true;
             txtNormSPO2.Visible = true;
+            PnlRadioButtons.Visible = false;
+            
+
             date = DateTime.Now.ToString("yyyy-M-dd-hh-mm-ss");
-            fileName = date+"-Sensordata.csv";
+            fileName = date + "-Sensordata.csv";
             stop = false;
 
             t.Start();
-            
         }
-        Boolean stop = false;
-        private void StoreData()
+
+        private void StopButton_Click(object sender, EventArgs e)
         {
-            string line;
-            StreamWriter data; //= null;
-            Char delim = ',';
-            
+            stop = true;
+            StartButton.Enabled = true;
+            StopButton.Enabled = false;
+            DisplayChart.Enabled = true;
+            ShowFiles.Enabled = true;
+            StartButton.Image = WindowsFormsApp1.Properties.Resources.start_button_png_image_14963;
+            StopButton.Image = WindowsFormsApp1.Properties.Resources.red_stop_button_png_inactive_image_100688;
+            DisplayChart.Image = WindowsFormsApp1.Properties.Resources.chart_png_image_71182;
+            ShowFiles.Image = WindowsFormsApp1.Properties.Resources.desk_drawer_png_image_12850;
+        }
+
+
+        private void DisplayChart_Click(object sender, EventArgs e)
+        {
 
             try
             {
+                this.data.Close();
+                stream.Close();
+                txtSPO2.Visible = false;
+                txtPRBPM.Visible = false;
+                txtNormHR.Visible = false;
+                txtNormSPO2.Visible = false;
+                chart1.Visible = true;
+                StreamReader database = new StreamReader(fileName);
+                string data;
+                Char delim = ',';
+                String[] sensors;
+                PnlRadioButtons.Visible = false;
+                chart1.BringToFront();
 
+                for (int count = 0; count < database.BaseStream.Length; count++)
+                {
+                    data = database.ReadLine();
+
+                    if (data != null)
+                    {
+
+                        sensors = data.Split(delim);
+
+                        chart1.Series["PRBPM"].Points.AddXY(count, sensors[0]);
+                        chart1.Series["SPO2"].Points.AddXY(count, sensors[1]);
+                    }
+
+                }
+                DisplayChart.Enabled = false;
+                database.Close();
+            }
+            catch (IOException ex)
+            {
+
+            }
+            catch (InvalidOperationException ex)
+            {
+
+            }
+            catch (NullReferenceException ex)
+            {
+
+            }
+        }
+
+        private void ShowFiles_Click(object sender, EventArgs e)
+        {
+            string folder = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); // @"\Debug\"
+            string filter = "*.csv";
+            string[] files = Directory.GetFiles(folder, filter);
+            chart1.Visible = false;
+            txtPRBPM.Visible = false;
+            txtSPO2.Visible = false;
+            txtNormSPO2.Visible = false;
+            txtNormHR.Visible = false;
+            DisplayChart.Enabled = true;
+            int place = 0;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+
+            for (int count = 0; count < files.Length; count++)
+            {
+                place = AddRadioButton(Path.GetFileName(files[count]), place);
+            }
+
+        }
+
+        private void StoreData()
+        {
+            string line;
+            
+            Char delim = ',';
+
+            try
+            {
                 if (stop == false)
                 {
                     data = new StreamWriter(fileName);
@@ -71,8 +168,6 @@ namespace WindowsFormsApp1
 
                     ThreadHelperClass.SetText(this, txtPRBPM, "Please wait while data is collected");
                     ThreadHelperClass.SetText(this, txtSPO2, "Please wait while data is collected");
-
-
 
                     while (stop == false)
                     {
@@ -88,19 +183,20 @@ namespace WindowsFormsApp1
                         data.Flush();
                     }
 
-                    data.Close();
-                    stream.Close();
                 }
+                
             }
             catch (IOException e)
             {
                 //this.txtError.Visible = true;
                 ThreadHelperClass.SetText(this, txtSPO2, "Please attach the device");
                 ThreadHelperClass.SetText(this, txtPRBPM, "Please attach the device");
+                data.Close();
+                stream.Close();
+                this.Invoke(new Action(() => { StopButton_Click(this.StopButton, null); }));
 
 
-                this.Invoke(new Action(() => { BtnStop.PerformClick(); }));
-                
+
                 StoreData();
 
             }
@@ -110,8 +206,17 @@ namespace WindowsFormsApp1
                 ThreadHelperClass.SetText(this, txtSPO2, "Please attach the device");
                 ThreadHelperClass.SetText(this, txtPRBPM, "Please attach the device");
 
+                data.Close();
+                stream.Close();
+
                 StoreData();
 
+            }
+            catch(UnauthorizedAccessException)
+            {
+                data.Close();
+                stream.Close();
+                StoreData();
             }
             catch (NullReferenceException e)
             {
@@ -119,107 +224,30 @@ namespace WindowsFormsApp1
                 ThreadHelperClass.SetText(this, txtSPO2, "Please attach the device");
                 ThreadHelperClass.SetText(this, txtPRBPM, "Please attach the device");
 
+                data.Close();
+                stream.Close();
+
                 StoreData();
 
             }
             catch (IndexOutOfRangeException)
             {
-                
+                data.Close();
                 stream.Close();
                 StoreData();
             }
         }
 
 
-        private void BtnStop_Click(object sender, EventArgs e)
-        {
-            stop = true;
-            BtnStart.Enabled = true;
-            BtnStop.Enabled = false;
-            BtnShowChart.Enabled = true;
-            
-        }
 
-        private void BtnShowChart_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                txtSPO2.Visible = false;
-                txtPRBPM.Visible = false;
-                txtNormHR.Visible = false;
-                txtNormSPO2.Visible = false;
-                chart1.Visible = true;
-                StreamReader database = new StreamReader(fileName);
-                string data;
-                Char delim = ',';
-                String[] sensors;
-                panel1.Visible = false;
-                chart1.BringToFront();
-                
 
-                for (int count = 0; count < database.BaseStream.Length; count++)
-                {
-                    data = database.ReadLine();
-
-                    if (data != null)
-                    {
-                       
-                        sensors = data.Split(delim);
-                        
-                        chart1.Series["PRBPM"].Points.AddXY(count, sensors[0]);
-                        chart1.Series["SPO2"].Points.AddXY(count, sensors[1]);
-                    }
-
-                }
-                BtnShowChart.Enabled = false;
-                database.Close();
-            }
-            catch (IOException ex)
-            {
-                
-            }
-            catch (InvalidOperationException ex)
-            {
-               
-            }
-            catch (NullReferenceException ex)
-            {
-               
-            }
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            System.Environment.Exit(0);
-        }
-
-        private void BtnShowFiles_Click(object sender, EventArgs e)
-        {
-            string folder = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); // @"\Debug\"
-            string filter = "*.csv";
-            string[] files = Directory.GetFiles(folder, filter);
-            chart1.Visible = false;
-            txtPRBPM.Visible = false;
-            txtSPO2.Visible = false;
-            txtNormSPO2.Visible = false;
-            txtNormHR.Visible = false;
-            BtnShowChart.Enabled = true;
-            int place = 0;
-            chart1.Series[0].Points.Clear();
-            chart1.Series[1].Points.Clear();
-
-            for (int count = 0; count < files.Length; count++)
-            {
-                place = AddRadioButton(Path.GetFileName(files[count]), place);
-            }
-
-        }
+       
         private int AddRadioButton(string file, int place)
         {
             System.Windows.Forms.RadioButton rb = new System.Windows.Forms.RadioButton();
-            panel1.Controls.Add(rb);
-            panel1.Visible = true;
-            panel1.BringToFront();
+            PnlRadioButtons.Controls.Add(rb);
+            PnlRadioButtons.Visible = true;
+            PnlRadioButtons.BringToFront();
             
             rb.Top = place;
             rb.Left = 0;
@@ -230,6 +258,16 @@ namespace WindowsFormsApp1
             fileName = file;
            
             return place;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

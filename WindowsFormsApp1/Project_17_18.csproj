@@ -26,6 +26,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <HockeyAppResourceId>93cb3b45a2894814bcf522608490d22d</HockeyAppResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -81,6 +82,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -106,6 +108,30 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\start-button-png-image-14963.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\start-button-inactive-png-image-14963.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\red-stop-button-png-image-100688.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\red-stop-button-png-inactive-image-100688.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\chart-png-image-inactive-71182.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\chart-png-image-71182.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\desk-drawer-png-image-12850.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\desk-drawer-png-image-inactive-12850.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
